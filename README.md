@@ -14,23 +14,24 @@
 
 ### Association
 - has_many   :items
-
+- has_one    :buyer
 
 ## shippings
 
 |Column                     |Type        |Options                        |
 |---------------------------|------------|-------------------------------|
 |buyer                      |reference   |null: false, foreign_key: true |
-|prefectures                |integer     |null: false                    |
+|prefecture                 |integer     |null: false                    |
 |city                       |string      |null: false                    |
 |building                   |string      |
-|ad dress                   |string      |null: false                    |
+|address                    |string      |null: false                    |
 |post_code                  |string      |null: false                    |
 |phone_number               |string      |null: false                    |
 
 
 ### Association
 - belongs_to :buyer
+- has_many   :items
 
 ## items
 
@@ -49,16 +50,19 @@
 
 ### Association
 - belongs_to :user
+- has_one    :buyer
 
 
-## buyer
+## buyers
 
 |Column  |Type      |Options                        |
 |--------|----------|-------------------------------|
 |item    |references|null: false, foreign_key: true |
 |user    |references|null: false, foreign_key: true |
+|shipping|references|null: false, foreign_key: true |
 
 
 ### Association
-- has_one :shipping
-
+- has_one    :shipping
+- belongs_to :item
+- belongs_to :user
