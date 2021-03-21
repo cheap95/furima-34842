@@ -31,7 +31,6 @@
 
 ### Association
 - belongs_to :buyer
-- has_many   :items
 
 ## items
 
@@ -59,7 +58,6 @@
 |--------|----------|-------------------------------|
 |item    |references|null: false, foreign_key: true |
 |user    |references|null: false, foreign_key: true |
-|shipping|references|null: false, foreign_key: true |
 
 
 ### Association
