@@ -19,6 +19,8 @@ class ItemsController < ApplicationController
   def update
   end
   def destroy
+    log_out
+    redirect_to root_path
   end
 
   private
