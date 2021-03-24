@@ -63,9 +63,11 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Email can't be blank")
       end
       it "メールアドレスが一意性であれば登録できないこと" do
-        @user.email = "aaa111"
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Email is invalid")
+        @user.save
+        @another_user = FactoryBot.build(:user)
+        @another_user.email = @user.email
+        @another_user.valid?
+        expect(@another_user.errors.full_messages).to include("Email has already been taken")
       end
       it "メールアドレスは、@を含まなければ登録できないこと" do
         @user.email = "asdfghj"
@@ -73,7 +75,6 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Email is invalid")
       end
       it "パスワードが空では登録できないこと" do
-        @user = FactoryBot.build(:user)
         @user.password = ""
         @user.valid?
         expect(@user.errors.full_messages).to include("Password can't be blank", "Password には英字と数字の両方を含めて設定してください", "Password confirmation doesn't match Password")
@@ -88,18 +89,18 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password には英字と数字の両方を含めて設定してください")
       end
-      it "パスワードは英語のみでは登録できないこと" do
+      it "パスワードは数字のみでは登録できないこと" do
         @user.password = "111111"
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password には英字と数字の両方を含めて設定してください")
       end
-      it "パスワードは数字のみでは登録できないこと" do
+      it "パスワードは英語のみでは登録できないこと" do
         @user.password = "aaaaaa"
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password には英字と数字の両方を含めて設定してください")
       end
       it "パスワードは、全角では登録できないこと" do
-        @user.password = "aaaaaa"
+        @user.password = "pkmkmkm"
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password には英字と数字の両方を含めて設定してください")
       end
