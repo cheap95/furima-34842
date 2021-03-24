@@ -110,7 +110,7 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("First family name can't be blank", "First family name is invalid", "Last family name can't be blank", "Last family name is invalid")
       end
-    it "ユーザー本名は、全角（漢字・ひらがな・カタカナ）が空では登録できないこと" do
+    it "ユーザー本名は、全角（漢字・ひらがな・カタカナ）でなければ登録できないこと" do
       @user = FactoryBot.build(:user)
       @user.first_family_name = ""
       @user.last_family_name = ""
