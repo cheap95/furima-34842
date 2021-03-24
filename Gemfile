@@ -58,3 +58,5 @@ gem 'pry-rails'
 gem 'rspec-rails', '~> 4.0.0'
 gem 'factory_bot_rails'
 gem 'faker'
+gem 'rubocop', require: false
+gem 'rubocop-rails', require:false
