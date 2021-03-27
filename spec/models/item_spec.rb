@@ -6,37 +6,7 @@ RSpec.describe Item, type: :model do
   end
   describe "ユーザーの出品機能" do
     context "ユーザーは出品できる" do
-      it "画像が１枚ある" do
-        expect(@item).to be_valid
-      end
-      it "商品名がある" do
-        expect(@item).to be_valid
-      end
-      it "商品説明がある"do
-        expect(@item).to be_valid
-      end
-      it "カテゴリー情報がある" do
-        expect(@item).to be_valid
-      end
-      it "商品状態の情報がある" do
-        expect(@item).to be_valid
-      end
-      it "配送料負担情報がある" do
-        expect(@item).to be_valid
-      end
-      it "発送元の情報がある" do
-        expect(@item).to be_valid
-      end
-      it "発送日数がある" do
-        expect(@item).to be_valid
-      end
-      it "販売価格がある" do
-        expect(@item).to be_valid
-      end
-      it "販売価格が￥300〜￥9,999,999間である" do
-        expect(@item).to be_valid
-      end
-      it "販売価格は半角数字である" do
+      it "全て揃っていたら出品できる" do
         expect(@item).to be_valid
       end
     end
@@ -91,8 +61,33 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
       end
+      it "販売価格￥299以下ではできない" do
+        @item.price = 100
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
+      end
+      it "1000万円以上ではできない" do
+        @item.price = 10000000
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
+      end
       it "販売価格が半角数字でない" do
         @item.price = "１２３４"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it "全角文字では登録できないこと" do
+        @item.price = "１２３４"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it "半角英数混合では登録できないこと" do
+        @item.price = "１a３４"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it "半角英語だけでは登録できないこと" do
+        @item.price = "aaa"
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
       end
