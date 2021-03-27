@@ -27,13 +27,13 @@ class Item < ApplicationRecord
     validates :price, format: { with: VALID_DELIVERY_FEE_REGEX }
 
          
-
-         validates :area_id, numericality: { other_than: 0 } 
-         validates :category_id, numericality: { other_than: 0 } 
-         validates :delivery_day_id, numericality: { other_than: 0 } 
-         validates :delivery_fee_id, numericality: { other_than: 0 } 
-         validates :condition_id, numericality: { other_than: 0 } 
-
+    with_options numericality: { other_than: 0 }  do
+        validates :area_id
+        validates :category_id
+        validates :delivery_day_id
+        validates :delivery_fee_id
+        validates :condition_id
+    end
 
 
 
