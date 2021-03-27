@@ -5,13 +5,14 @@ class Item < ApplicationRecord
     belongs_to_active_hash :delivery_day
     belongs_to_active_hash :delivery_fee
     belongs_to_active_hash :condition
+    
     belongs_to :user
     has_one    :buyer
     has_one_attached :image
 
     
     with_options presence: true do
-        validates :price
+        validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
         validates :name
         validates :description
         validates :condition_id
@@ -22,7 +23,10 @@ class Item < ApplicationRecord
         validates :image
     end
 
-         #validates :title, :text, presence: true
+    VALID_DELIVERY_FEE_REGEX = /[0-9\d]/.freeze
+    validates :price, format: { with: VALID_DELIVERY_FEE_REGEX }
+
+         
 
          validates :area_id, numericality: { other_than: 0 } 
          validates :category_id, numericality: { other_than: 0 } 
