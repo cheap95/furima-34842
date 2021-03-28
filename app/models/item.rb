@@ -34,9 +34,8 @@ class Item < ApplicationRecord
         validates :delivery_fee_id
         validates :condition_id
     end
-
-
-
+    
+    
     
 end
 
