@@ -16,7 +16,7 @@
 - has_many   :items
 - has_one    :buyer
 
-## shippings
+## orders
 
 |Column                     |Type        |Options                        |
 |---------------------------|------------|-------------------------------|
@@ -61,6 +61,6 @@
 
 
 ### Association
-- has_one    :shipping
+- has_one    :order
 - belongs_to :item
 - belongs_to :user
