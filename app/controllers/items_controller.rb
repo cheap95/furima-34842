@@ -5,8 +5,10 @@ class ItemsController < ApplicationController
   def index
     @items = Item.all.order ("created_at DESC")
   end
+
   def  new
     @item = Item.new
+    
   end
 
   def create
@@ -16,13 +18,12 @@ class ItemsController < ApplicationController
     else
       render :new
     end
-
   end
 
   def show 
   end
   def edit
-  end
+  end 
 
   def update
     if @item.update(item_params)
@@ -39,6 +40,7 @@ class ItemsController < ApplicationController
 
 
   private
+
   def item_params
     params.require(:item).permit(:image, :price, :name, :description, :condition_id, :category_id, :delivery_fee_id, :area_id, :delivery_day_id).merge(user_id: current_user.id)
   end
