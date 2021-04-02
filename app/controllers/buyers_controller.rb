@@ -1,10 +1,10 @@
 class BuyersController < ApplicationController
     def index
+        @buyer = Buyer.find(params[:id])
     end
 
     def new
         @buyer = Buyer.new
-
     end
     
     def create
@@ -22,5 +22,5 @@ end
 
 private
 def buyer_params
-    params.require(:buyer).permit(:prefecture, :city, :address, :post_code, :phone_number, :image, :name, :price, :description, :condition_id, :category_id, :area_id, :delivery_fee_id, :delivery_day_id).merge(user_id: current_user.id, item_id: item.id)
-  end
+    params.require(:buyer).permit(:item_id, :name, :price, :description, :condition_id, :category_id, :area_id, :delivery_fee_id, :delivery_day_id).merge(user_id: current_user.id)
+  end 
