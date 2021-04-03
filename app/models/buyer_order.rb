@@ -15,6 +15,7 @@ class BuyerOrder
         validates :address
         validates :post_code
         validates :phone_number
+        validates :token
     end
      
     
