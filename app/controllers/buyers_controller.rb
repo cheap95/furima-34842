@@ -5,6 +5,7 @@ class BuyersController < ApplicationController
     end
     
     def create
+        
       @buyer_order = BuyerOrder.new(buyer_order_params)
         @buyer = item.find(params[:item_id])
     if  @buyer.valid?
@@ -25,7 +26,7 @@ class BuyersController < ApplicationController
     def pay_item
     Payjp.api_key = "sk_test_9089197d0eaab0d73de5d760"
     Payjp::Charge.create(
-        amount: buyer_order_params[:item.price],
+        amount: @item.price,
         card: buyer_order_params[:token],
         currency: 'jpy'
     ) 
