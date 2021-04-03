@@ -1,6 +1,6 @@
 class BuyerOrder
     include ActiveModel::Model
-    attr_accessor :user_id, :item_id, :condition_id, :category_id, :delivery_fee_id, :delivery_day_id, :area_id
+    attr_accessor :user_id, :item_id, :condition_id, :category_id, :delivery_fee_id, :delivery_day_id, :area_id, :token
 
     
     with_options presence: true do
@@ -23,7 +23,7 @@ class BuyerOrder
     def save
     
     buyer = Buyer.create(user_id: user_id, item_id: item_id)
-    Order.create(item_id: item.id, city: city, address: address, post_code: post_code, phone_number: phone_number, building: building)
+    Order.create(city: city, address: address, post_code: post_code, phone_number: phone_number, building: building, buyer_id: buyer.id )
     #prefectureはarea_idで使いまわせるため抜いている
     end
 end

@@ -20,5 +20,5 @@ end
 
 private
 def buyer_order_params
-    params.require(:buyer_order).permit(:prefecture, :city, :address, :post_code, :phone_number, :building).merge(user_id: current_user.id)
+    params.require(:buyer_order).permit(:prefecture, :city, :address, :post_code, :phone_number, :building).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end 
