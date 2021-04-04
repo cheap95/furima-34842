@@ -5,7 +5,7 @@ class BuyerOrder
     
     with_options presence: true do
         
-        #validates :item_id
+        validates :item_id
         validates :user_id
         #validates :buyer_id
 
@@ -24,7 +24,7 @@ class BuyerOrder
     def save
     
     buyer = Buyer.create(user_id: user_id, item_id: item_id)
-    Order.create(city: city, address: address, post_code: post_code, phone_number: phone_number, building: building, buyer_id: buyer.id )
+    Order.create(city: city, address: address, post_code: post_code, phone_number: phone_number, building: building, buyer_id: buyer.id, area_id: area_id)
     #prefectureはarea_idで使いまわせるため抜いている
     end
-end
+end 
