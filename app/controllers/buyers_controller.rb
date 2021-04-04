@@ -1,13 +1,13 @@
 class BuyersController < ApplicationController
     def index
-        @items= Item.find(params[:item_id])
+        @item = Item.find(params[:item_id])
         @buyer_order = BuyerOrder.new
     end
     
     def create
-        
+     
       @buyer_order = BuyerOrder.new(buyer_order_params)
-        @buyer = item.find(params[:item_id])
+        @buyer = Item.find(params[:item_id])
     if  @buyer.valid?
         pay_item
         @buyer.save

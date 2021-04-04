@@ -1,6 +1,6 @@
 class BuyerOrder
     include ActiveModel::Model
-    attr_accessor :user_id, :item_id, :condition_id, :category_id, :delivery_fee_id, :delivery_day_id, :area_id, :token
+    attr_accessor :user_id, :item_id, :condition_id, :category_id, :delivery_fee_id, :delivery_day_id, :area_id, :token, :city, :address, :post_code, :phone_number, :building
 
     
     with_options presence: true do
