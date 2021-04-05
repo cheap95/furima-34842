@@ -1,13 +1,15 @@
 class BuyersController < ApplicationController
     def index
         @item = Item.find(params[:item_id])
-        @buyer_order = BuyerOrder.new
-        unless @buyer_order.save && user_signed_in?
-            redirect_to root_path
+        if @item.buyer.present? && user_signed_in?
+             redirect_to root_path
         end
         if current_user == @item.user
             redirect_to root_path
         end
+        
+        @buyer_order = BuyerOrder.new
+        
     end
     
     def create
@@ -31,7 +33,7 @@ class BuyersController < ApplicationController
     end 
 
     def pay_item
-
+    
     Payjp.api_key = "sk_test_9089197d0eaab0d73de5d760"
     Payjp::Charge.create(
       amount: @item.price,

@@ -8,11 +8,12 @@ class BuyerOrder
         validates :item_id
         validates :user_id
 
-        validates :city
+        validates :city, format: { with: /\A[ぁ-んァ-ン一-龥々]+\z/ }
         validates :address
-        validates :post_code
-        validates :phone_number
+        validates :post_code, format: { with: /\A\d{3}[-]\d{4}\z/ }
+        validates :phone_number, format: { with: /\A\d{11}\z/}
         validates :token
+        validates :area_id
     end
      
     
