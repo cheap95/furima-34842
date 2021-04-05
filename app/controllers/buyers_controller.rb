@@ -1,9 +1,10 @@
 class BuyersController < ApplicationController
+  before_action :authenticate_user!, :index
   def index
     @item = Item.find(params[:item_id])
-    redirect_to root_path if @item.buyer.present? && user_signed_in?
-    redirect_to root_path if current_user == @item.user
-
+    if @item.buyer.present? && user_signed_in? || current_user == @item.user
+      redirect_to root_path
+    end
     @buyer_order = BuyerOrder.new
   end
 
