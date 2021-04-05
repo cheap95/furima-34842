@@ -6,87 +6,87 @@ RSpec.describe BuyerOrder, type: :model do
     @item_id = Item.create
     @buyer_order = FactoryBot.build(:buyer_order)
   end
-  describe "ユーザー商品購入" do
-    context "購入できるとき" do
-      it "トークンがある" do
+  describe 'ユーザー商品購入' do
+    context '購入できるとき' do
+      it 'トークンがある' do
         expect(@buyer_order).to be_valid
-       end
-       it "郵便番号がある" do
+      end
+      it '郵便番号がある' do
         expect(@buyer_order).to be_valid
-       end
-       it "都道府県がある" do
+      end
+      it '都道府県がある' do
         expect(@buyer_order).to be_valid
-       end
-       it "市町村がある" do
+      end
+      it '市町村がある' do
         expect(@buyer_order).to be_valid
-       end
-       it "番地がある" do
+      end
+      it '番地がある' do
         expect(@buyer_order).to be_valid
-       end
-       it "電話番号がある" do
+      end
+      it '電話番号がある' do
         expect(@buyer_order).to be_valid
-       end     
+      end
     end
-    context "購入できないとき" do
-      it "トークンがない" do
-        @buyer_order.token = ""
+    context '購入できないとき' do
+      it 'トークンがない' do
+        @buyer_order.token = ''
         @buyer_order.valid?
         expect(@buyer_order.errors.full_messages).to include("Token can't be blank")
       end
-      it "郵便番号がない" do
-        @buyer_order.post_code = ""
+      it '郵便番号がない' do
+        @buyer_order.post_code = ''
         @buyer_order.valid?
-        expect(@buyer_order.errors.full_messages).to include("Post code is invalid")
+        expect(@buyer_order.errors.full_messages).to include('Post code is invalid')
       end
-      it "郵便番号に数字以外が使われている" do
-        @buyer_order.post_code = "111-111あ"
+      it '郵便番号に数字以外が使われている' do
+        @buyer_order.post_code = '111-111あ'
         @buyer_order.valid?
-        expect(@buyer_order.errors.full_messages).to include("Post code is invalid")
+        expect(@buyer_order.errors.full_messages).to include('Post code is invalid')
       end
-      it "郵便番号に-がない" do
-        @buyer_order.post_code = "1112222"
+      it '郵便番号に-がない' do
+        @buyer_order.post_code = '1112222'
         @buyer_order.valid?
-        expect(@buyer_order.errors.full_messages).to include("Post code is invalid")
+        expect(@buyer_order.errors.full_messages).to include('Post code is invalid')
       end
-      it "郵便番号の桁がおかしい" do
-        @buyer_order.post_code = "1112-333"
+      it '郵便番号の桁がおかしい' do
+        @buyer_order.post_code = '1112-333'
         @buyer_order.valid?
-        expect(@buyer_order.errors.full_messages).to include("Post code is invalid")
+        expect(@buyer_order.errors.full_messages).to include('Post code is invalid')
       end
-      it "都道府県がない" do
-        @buyer_order.area_id  = ""
+      it '都道府県がない' do
+        @buyer_order.area_id = ''
         @buyer_order.valid?
         expect(@buyer_order.errors.full_messages).to include("Area can't be blank")
       end
-      it "市町村がない" do
-        @buyer_order.city = ""
+      it '市町村がない' do
+        @buyer_order.city = ''
         @buyer_order.valid?
         expect(@buyer_order.errors.full_messages).to include("City can't be blank")
       end
-      it "市町村に英字がある" do
-        @buyer_order.city = "aaa"
+      it '市町村に英字がある' do
+        @buyer_order.city = 'aaa'
         @buyer_order.valid?
-        expect(@buyer_order.errors.full_messages).to include("City is invalid")
+        expect(@buyer_order.errors.full_messages).to include('City is invalid')
       end
-      it "市町村に数字がある" do
+      it '市町村に数字がある' do
         @buyer_order.city = 11
         @buyer_order.valid?
-        expect(@buyer_order.errors.full_messages).to include("City is invalid")
+        expect(@buyer_order.errors.full_messages).to include('City is invalid')
       end
-      it "番地がない" do
-        @buyer_order.address = ""
+      it '番地がない' do
+        @buyer_order.address = ''
         @buyer_order.valid?
         expect(@buyer_order.errors.full_messages).to include("Address can't be blank")
       end
-      it "電話番号がない" do
-        @buyer_order.phone_number = ""
+      it '電話番号がない' do
+        @buyer_order.phone_number = ''
         @buyer_order.valid?
         expect(@buyer_order.errors.full_messages).to include("Phone number can't be blank")
       end
-      it "電話番号が11桁ではない" do
-        @buyer_order.phone_number = "090123456789"
+      it '電話番号が11桁ではない' do
+        @buyer_order.phone_number = '090123456789'
         @buyer_order.valid?
-        expect(@buyer_order.errors.full_messages).to include("Phone number is invalid")
+        expect(@buyer_order.errors.full_messages).to include('Phone number is invalid')
       end
     end
   end
