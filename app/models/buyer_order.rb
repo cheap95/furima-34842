@@ -7,10 +7,7 @@ class BuyerOrder
         
         validates :item_id
         validates :user_id
-        #validates :buyer_id
 
-        #validates :buyer
-        #validates :prefecture
         validates :city
         validates :address
         validates :post_code

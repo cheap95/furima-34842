@@ -2,6 +2,12 @@ class BuyersController < ApplicationController
     def index
         @item = Item.find(params[:item_id])
         @buyer_order = BuyerOrder.new
+        unless @buyer_order.save && user_signed_in?
+            redirect_to root_path
+        end
+        if current_user == @item.user
+            redirect_to root_path
+        end
     end
     
     def create
