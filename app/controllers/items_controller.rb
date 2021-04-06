@@ -51,8 +51,8 @@ class ItemsController < ApplicationController
 
   def move_item
       
-    unless @item.buyer.present? || current_user.id == @item.user_id
-    redirect_to action: :index 
+    if @item.buyer.present? || current_user.id == @item.user_id
+         redirect_to action: :index 
     end
   end
 end

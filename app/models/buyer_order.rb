@@ -1,6 +1,6 @@
 class BuyerOrder
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :condition_id, :category_id, :delivery_fee_id, :delivery_day_id, :area_id, :token, :city,
+  attr_accessor :user_id, :item_id, :area_id, :token, :city,
                 :address, :post_code, :phone_number, :building
 
   with_options presence: true do
@@ -10,7 +10,7 @@ class BuyerOrder
     validates :city, format: { with: /\A[ぁ-んァ-ン一-龥々]+\z/ }
     validates :address
     validates :post_code, format: { with: /\A\d{3}-\d{4}\z/ }
-    validates :phone_number, format: { with: /\A\d{11}\z/ }
+    validates :phone_number, format: { with: /\A\d{10,11}\z/ }
     validates :token
     validates :area_id, numericality: { other_than: 0 }
   end

@@ -1,11 +1,8 @@
 class BuyersController < ApplicationController
-  before_action :authenticate_user!, only: [:index]
+  before_action :authenticate_user!, only: [:index, :create]
   before_action :set_buyer, only: [:index, :create]
-
+  before_action :move_buyer, only: [:index, :create]
   def index
-    if @item.buyer.present? || current_user == @item.user
-      redirect_to root_path
-    end
     @buyer_order = BuyerOrder.new
   end
 
@@ -33,9 +30,15 @@ class BuyersController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
+  def move_buyer
+    if @item.buyer.present? || current_user == @item.user
+        redirect_to root_path
+    end
+  end
 
+  
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: buyer_order_params[:token],

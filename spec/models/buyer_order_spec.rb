@@ -92,7 +92,7 @@ RSpec.describe BuyerOrder, type: :model do
         @buyer_order.valid?
         expect(@buyer_order.errors.full_messages).to include("Phone number can't be blank")
       end
-      it '電話番号が11桁ではない' do
+      it '電話番号が10,11桁ではない' do
         @buyer_order.phone_number = '090123456789'
         @buyer_order.valid?
         expect(@buyer_order.errors.full_messages).to include('Phone number is invalid')
