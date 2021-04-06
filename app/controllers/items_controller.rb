@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:edit, :update, :show, :destroy]
-  before_action :move_item, only: [:edit, :update]
+  before_action :move_item, only: [:edit, :update, :destroy]
   def index
     @items = Item.all.order('created_at DESC')
   end
@@ -51,7 +51,7 @@ class ItemsController < ApplicationController
 
   def move_item
       
-    if @item.buyer.present? || current_user.id == @item.user_id
+    if @item.buyer.present? || current_user.id != @item.user_id
          redirect_to action: :index 
     end
   end
