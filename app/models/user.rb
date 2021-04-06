@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -12,15 +11,14 @@ class User < ApplicationRecord
       validates :last_family_name
     end
 
-    with_options format: { with: /\A[ァ-ヶー－]+\z/} do
+    with_options format: { with: /\A[ァ-ヶー－]+\z/ } do
       validates :first_family_name_kana
       validates :last_family_name_kana
-    end   
-    PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
-    validates_format_of :password, with: PASSWORD_REGEX, message: 'には英字と数字の両方を含めて設定してください' 
-      
     end
+    PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
+    validates_format_of :password, with: PASSWORD_REGEX, message: 'には英字と数字の両方を含めて設定してください'
+  end
 
   has_many :items
-  has_one  :buyer
+  has_many  :buyers
 end
