@@ -27,7 +27,7 @@ RSpec.describe BuyerOrder, type: :model do
       it '電話番号がある' do
         expect(@buyer_order).to be_valid
       end
-      it '建物名がある' do
+      it '建物名が空でもできる' do
         expect(@buyer_order).to be_valid
       end
     end
@@ -96,7 +96,22 @@ RSpec.describe BuyerOrder, type: :model do
         @buyer_order.phone_number = '090123456789'
         @buyer_order.valid?
         expect(@buyer_order.errors.full_messages).to include('Phone number is invalid')
-      end     
+      end  
+      it '電話番号が英数混合ではない' do
+        @buyer_order.phone_number = '0901234567a'
+        @buyer_order.valid?
+        expect(@buyer_order.errors.full_messages).to include('Phone number is invalid')
+      end
+      it 'user_idが空ではない' do
+        @buyer_order.user_id = ''
+        @buyer_order.valid?
+        expect(@buyer_order.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空ではない' do
+        @buyer_order.item_id = ''
+        @buyer_order.valid?
+        expect(@buyer_order.errors.full_messages).to include("Item can't be blank")
+      end
     end
   end
 end
