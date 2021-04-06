@@ -12,7 +12,7 @@ class BuyerOrder
     validates :post_code, format: { with: /\A\d{3}-\d{4}\z/ }
     validates :phone_number, format: { with: /\A\d{11}\z/ }
     validates :token
-    validates :area_id
+    validates :area_id, numericality: { other_than: 0 }
   end
 
   def save

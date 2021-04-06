@@ -2,10 +2,11 @@ require 'rails_helper'
 
 RSpec.describe BuyerOrder, type: :model do
   before do
-    @user_id = User.create
-    @item_id = Item.create
-    @buyer_order = FactoryBot.build(:buyer_order)
-  end
+    @user_id = FactoryBot.create(:user)
+    @item_id = FactoryBot.create(:item)
+    @buyer_order = FactoryBot.build(:buyer_order, user_id: @user_id.id, item_id: @item_id.id)
+    sleep 0.1
+  end 
   describe 'ユーザー商品購入' do
     context '購入できるとき' do
       it 'トークンがある' do
@@ -24,6 +25,9 @@ RSpec.describe BuyerOrder, type: :model do
         expect(@buyer_order).to be_valid
       end
       it '電話番号がある' do
+        expect(@buyer_order).to be_valid
+      end
+      it '建物名がある' do
         expect(@buyer_order).to be_valid
       end
     end
@@ -58,6 +62,11 @@ RSpec.describe BuyerOrder, type: :model do
         @buyer_order.valid?
         expect(@buyer_order.errors.full_messages).to include("Area can't be blank")
       end
+      it '都道府県が０ではできない' do
+        @buyer_order.area_id = 0
+        @buyer_order.valid?
+        expect(@buyer_order.errors.full_messages).to include("Area must be other than 0")
+      end
       it '市町村がない' do
         @buyer_order.city = ''
         @buyer_order.valid?
@@ -87,7 +96,7 @@ RSpec.describe BuyerOrder, type: :model do
         @buyer_order.phone_number = '090123456789'
         @buyer_order.valid?
         expect(@buyer_order.errors.full_messages).to include('Phone number is invalid')
-      end
+      end     
     end
   end
 end
