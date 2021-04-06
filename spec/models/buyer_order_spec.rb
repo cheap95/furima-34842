@@ -28,7 +28,7 @@ RSpec.describe BuyerOrder, type: :model do
         expect(@buyer_order).to be_valid
       end
       it '建物名が空でもできる' do
-        expect(@buyer_order).to be_valid
+        @buyer_order.building = ''
       end
     end
     context '購入できないとき' do
