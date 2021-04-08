@@ -25,7 +25,7 @@ class Item < ApplicationRecord
   VALID_DELIVERY_FEE_REGEX = /[0-9\d]/.freeze
   validates :price, format: { with: VALID_DELIVERY_FEE_REGEX }
 
-  with_options numericality: { other_than: 0 } do
+  with_options numericality: { message: 'は--以外を選択して下さい', other_than: 0 } do
     validates :area_id
     validates :category_id
     validates :delivery_day_id
