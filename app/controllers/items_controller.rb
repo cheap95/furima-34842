@@ -17,9 +17,16 @@ class ItemsController < ApplicationController
     else
       render :new
     end
+
   end
 
   def show
+    
+    @comment = Comment.new
+    @comments = @item.comments.includes(:user).order(created_at: :desc)
+    if @comment.save
+         redirect_to item_path
+    end
   end
 
   def edit

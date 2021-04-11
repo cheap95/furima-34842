@@ -19,6 +19,5 @@ class BuyerOrder
     buyer = Buyer.create(user_id: user_id, item_id: item_id)
     Order.create(city: city, address: address, post_code: post_code, phone_number: phone_number, building: building,
                  buyer_id: buyer.id, area_id: area_id)
-    # prefectureはarea_idで使いまわせるため抜いている
   end
 end
